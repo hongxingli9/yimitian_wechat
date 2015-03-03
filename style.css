@@ -1,0 +1,47 @@
+body, div {
+	margin : 0;
+	padding : 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+#stage {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#background {
+	width: 100%;
+	height: 100%;
+	background: url(images/bg.jpg) 0px 0px/100% 100% no-repeat;
+}
+
+#character {
+	position: absolute;
+	left: 7.03%;
+	top: 19.1%;
+	width: 49.1%;
+	height: 14.4%;
+	background: url(images/character.png) 0px 0px/100% 100% no-repeat;
+}
+
+#about {
+	position: absolute;
+	left: 21.5%;
+	top: 14.7%;
+	width: 18%;
+	height: 16%;
+	background: url(images/about.jpg) 0px 0px/100% 100% no-repeat;
+}
+
+#works {
+	position: absolute;
+	left: 19.8%;
+	top: 43%;
+	width: 60%;
+	height: 28%;
+	background: url(images/works2.png) 0px 0px/100% 100% no-repeat;
+}
