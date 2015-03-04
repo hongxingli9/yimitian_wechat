@@ -5,6 +5,14 @@
 	<title>一米天动画</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<style>
+	#test {
+		position: absolute;
+		left: 50%;
+		top: 30px;
+		transform: translateX(-50%);
+	}
+	</style>
 </head>
 <body>
 	<div id="stage">
@@ -14,8 +22,9 @@
 		<div id="works" class="works"></div>
 		<div id="contact" class="contact"></div>
 		<div id="man" class="man">
-			<div id="left-hand" class="left-hand test"></div>
+			<div id="left-hand" class="left-hand"></div>
 			<div id="right-hand" class="right-hand"></div>
+			<div id="right-hand-hidden" class="right-hand right-hand-hidden"></div>
 			<div id="foot" class="foot"></div>
 			<div id="person" class="person"></div>
 		</div>		
@@ -26,10 +35,18 @@
 		<div id="tip_contact" class="tip"></div>
 	</div>
 	<button id="test">TEST</button>
-
+	
 	<script>
 	var test = document.getElementById("test");
-	var left_hand = document.getElementById("left-hand");
+	var right_hand = document.getElementById("right-hand");
+	var right_hidden = document.getElementById("right-hand-hidden");
+
+    
+	function toggleClass() {
+		right_hand.classList.toggle('test');
+		right_hidden.classList.toggle("active");
+	}
+	test.addEventListener('click', toggleClass);
 	</script>
 </body>
 </html>
