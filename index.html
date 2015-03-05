@@ -14,7 +14,7 @@
 	}
 	</style>
 </head>
-<body>
+<body id="main" class="small">
 	<div id="stage">
 		<div id="background" class="background"></div>		
 		<div id="about" class="about"></div>
@@ -42,6 +42,8 @@
 	<button id="test">TEST</button>
 	
 	<script>
+	var main = document.getElementById("main");
+	var time_main = setTimeout('main.classList.remove("small")', 500);
 	var test = document.getElementById("test");
 	var right_hand = document.getElementById("right-hand");
 	var right_hidden = document.getElementById("right-hand-hidden");
@@ -54,8 +56,7 @@
 		var time1 = setTimeout('contact.classList.add("contact_move")', 200);
 		var time2 = setTimeout('right_hidden.classList.add("move_up")', 200);
 		var time3 =setTimeout('contact.style.visibility = "hidden"', 250);
-		var time4 = setTimeout('contact_copy.classList.add("contact_copy_show")', 300);
-		
+		var time4 = setTimeout('contact_copy.classList.add("contact_copy_show")', 300);		
 	}
 
 	function rmClass() {
