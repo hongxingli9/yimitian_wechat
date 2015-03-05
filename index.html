@@ -21,18 +21,23 @@
 		<div id="character" class="character"></div>
 		<div id="works" class="works"></div>
 		<div id="contact" class="contact"></div>
+		<div id="contact_copy" class="contact_copy"></div>		
 		<div id="man" class="man">
 			<div id="left-hand" class="left-hand"></div>
 			<div id="right-hand" class="right-hand"></div>
 			<div id="right-hand-hidden" class="right-hand right-hand-hidden"></div>
 			<div id="foot" class="foot"></div>
 			<div id="person" class="person"></div>
-		</div>		
+		</div>	
+		<div id="stage_close" class="stage_close">
+			<div id="rectangle_up" class="rectangle"></div>
+			<div id="rectangle_down" class="rectangle"></div>
+		</div>
 		<div id="wall" class="wall"></div>
 		<div id="door" class="door"></div>
 		<div id="tip_about" class="tip"></div>
 		<div id="tip_works" class="tip"></div>
-		<div id="tip_contact" class="tip"></div>
+		<div id="tip_contact" class="tip"></div>		
 	</div>
 	<button id="test">TEST</button>
 	
@@ -40,13 +45,29 @@
 	var test = document.getElementById("test");
 	var right_hand = document.getElementById("right-hand");
 	var right_hidden = document.getElementById("right-hand-hidden");
-
-    
-	function toggleClass() {
-		right_hand.classList.toggle('test');
-		right_hidden.classList.toggle("active");
+	var contact = document.getElementById("contact");
+    var contact_copy = document.getElementById("contact_copy");
+    var close_button = document.getElementById("stage_close");
+	function addClass() {
+		right_hand.classList.add('test');
+		right_hidden.classList.add("active");
+		var time1 = setTimeout('contact.classList.add("contact_move")', 200);
+		var time2 = setTimeout('right_hidden.classList.add("move_up")', 200);
+		var time3 =setTimeout('contact.style.visibility = "hidden"', 250);
+		var time4 = setTimeout('contact_copy.classList.add("contact_copy_show")', 300);
+		
 	}
-	test.addEventListener('click', toggleClass);
+
+	function rmClass() {
+		contact_copy.classList.remove("contact_copy_show");		
+		var time1 = setTimeout('contact.style.visibility = "visible"', 250);
+		var time2 = setTimeout('right_hidden.classList.remove("move_up")', 250);
+		var time3 = setTimeout('contact.classList.remove("contact_move")', 250);
+		var time4 = setTimeout('right_hidden.classList.remove("active")', 450);
+		var time5 = setTimeout('right_hand.classList.remove("test")', 650);
+	}
+	test.addEventListener('click', addClass);
+	close_button.addEventListener("click", rmClass);
 	</script>
 </body>
 </html>
