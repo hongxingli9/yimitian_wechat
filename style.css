@@ -10,11 +10,11 @@ html, body {
 	margin: 0 auto;
 	background-color: rgb(0,0,0);
 	overflow: hidden;
-	transition: all .2s;
+	-webkit-transition: all .2s;
 }
 
 .small {
-	transform: scale(0.8,0.8);
+	-webkit-transform: scale(0.8,0.8);
 }
 
 #stage {
@@ -56,6 +56,10 @@ html, body {
 	background: url(images/works2.png) 0px 0px/100% 100% no-repeat;
 }
 
+.hand {
+	-webkit-animation: typing .3s linear infinite alternate;
+}
+
 .left-hand {
 	position: absolute;
 	left: 37.6%;
@@ -63,8 +67,7 @@ html, body {
 	width: 6%;
 	height: 20%;
 	background: url(images/hand.png) 0px 0px/100% 100% no-repeat;
-	transform: rotate(27deg);
-	-webkit-animation: typing .3s linear infinite alternate;
+	-webkit-transform: rotate(27deg);	
 }
 
 
@@ -76,20 +79,20 @@ html, body {
 	width: 6%;     
 	height: 20%;     
 	background: url(images/hand.png) 0px 0px/100% 100% no-repeat;     
-	transform: rotate(27deg);     
-	-webkit-animation: typing .3s linear infinite alternate; 
-	
+	-webkit-transform: rotate(27deg);
 }
+
+
 
 .right-hand-hidden {
 	-webkit-animation: none;
 	visibility: hidden;
-	transition: all .2s;
+	-webkit-transition: all .2s;
 }
 
 .active {
 	visibility: visible;
-	transform: translate(60%, -20%) rotate(72deg);
+	-webkit-transform: translate3d(60%, -20%, 0) rotate(72deg);
 }
 
 .test {
@@ -97,7 +100,7 @@ html, body {
 }
 
 .move_up {
-	transform: translate(126%, -40%) rotate(20deg);
+	-webkit-transform: translate3d(126%, -40%, 0) rotate(20deg);
 }
 
 .foot {
@@ -107,7 +110,7 @@ html, body {
 	width: 12%;
 	height: 16%;
 	background: url(images/foot.png) 0px 0px/100% 100% no-repeat;
-	transform: rotate(-30deg);
+	-webkit-transform: rotate(-30deg);
 	-webkit-animation: shakefeet 0.6s linear infinite alternate;
 }
 
@@ -130,35 +133,33 @@ html, body {
 	height: 4.2%;
 	background: url(images/contact.png) 0px 0px/100% 100% no-repeat;
 	-webkit-transform-style: preserve-3d;
-	transform: skewX(40deg) ;
-	transition: all .1s;
+	-webkit-transform: skewX(40deg) ;
+	-webkit-transition: all .1s;
 }
 
 .contact_move {
-	transform: skewX(40deg)  translate(140%, -240%);
+	-webkit-transform: skewX(40deg)  translate3d(140%, -240%, 0);
 }
 
 .contact_copy {
 	position: absolute;
-	left: 60%;
-	top: 60%;
-	width: 6.8%;
-	height: 4.2%;
+	left: 18%;
+	top: 18%;
+	width: 88%;
+	height: 88%;
 	background: url(images/contact.png) 0px 0px/100% 100% no-repeat;
 	-webkit-transform-style: preserve-3d;
-	/*transform: scale(0.08, 0.1);*/
-	transition: all .3s;
+	-webkit-transform: translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06);
+	-webkit-transition: -webkit-transform .5s, left .5s, top .5s, visibility, .45s;
 	z-index: 100;
 	visibility: hidden;
 }
 
 .contact_copy_show {
-	visibility: visible;	
+	visibility: visible;
 	left: 50%;
-	top: 50%;
-	width: 88%;
-	height: 88%;
-	transform: translate(-50%, -50%) rotate(360deg);
+	top: 50%;	
+	-webkit-transform: translate3d(-50%, -50%, 0) rotate(-360deg) scale(1, 1);
 }
 
 /*关闭弹出的叉号*/
@@ -168,7 +169,7 @@ html, body {
 	top: 5%;
 	width: 60px;
 	height: 60px;
-	transition: all .2s;
+	-webkit-transition: all .2s;
 	z-index: 100
 }
 
@@ -180,7 +181,7 @@ html, body {
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	transform-origin: center center;
+	-webkit-transform-origin: center center;
 	
 	width: 50px;
 	height: 8px;
@@ -188,11 +189,11 @@ html, body {
 }
 
 #rectangle_up {
-	transform: translate(-50%, -50%) rotate(45deg);
+	-webkit-transform: translate3d(-50%, -50%, 0) rotate(45deg);
 }
 
 #rectangle_down {
-	transform: translate(-50%, -50%) rotate(-45deg);
+	-webkit-transform: translate3d(-50%, -50%, 0) rotate(-45deg);
 }
 
 .tip {
@@ -225,19 +226,19 @@ html, body {
 
 /*动画*/
 @-webkit-keyframes typing {
-	0%{ bottom: 11%;}	
-	50% { bottom: 12%;}	
-	100% { bottom: 13%;}
+	0%{ -webkit-transform: translate3d(0, -4%, 0) rotate(27deg);}	
+	50% { -webkit-transform: translate3d(0, 0%, 0) rotate(27deg); }	
+	100% { -webkit-transform: translate3d(0, 4%, 0) rotate(27deg);}
 }
 
 @-webkit-keyframes shakefeet {
-	0% { transform: rotate(-24deg);}	
-	50% {transform: rotate(-30deg);}	
-	100% { transform: rotate(-36deg);}
+	0% { -webkit-transform: rotate(-24deg);}	
+	50% { -webkit-transform: rotate(-30deg);}	
+	100% { -webkit-transform: rotate(-36deg);}
 }
 
 @-webkit-keyframes attention {
-	0% { transform: scale(0.8, 0.8); opacity: .6;}
-	50% { transform: scale(1, 1); opacity: .5;}
-	100% { transform: scale(1.2, 1.2); opacity: .4;}
+	0% { -webkit-transform: scale(0.8, 0.8); opacity: .6;}
+	50% { -webkit-transform: scale(1, 1); opacity: .5;}
+	100% { -webkit-transform: scale(1.2, 1.2); opacity: .4;}
 }

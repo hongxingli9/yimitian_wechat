@@ -14,7 +14,7 @@
 	}
 	</style>
 </head>
-<body id="main" class="small">
+<body id="main" class="">
 	<div id="stage">
 		<div id="background" class="background"></div>		
 		<div id="about" class="about"></div>
@@ -23,8 +23,8 @@
 		<div id="contact" class="contact"></div>
 		<div id="contact_copy" class="contact_copy"></div>		
 		<div id="man" class="man">
-			<div id="left-hand" class="left-hand"></div>
-			<div id="right-hand" class="right-hand"></div>
+			<div id="left-hand" class="hand left-hand"></div>
+			<div id="right-hand" class="hand right-hand"></div>
 			<div id="right-hand-hidden" class="right-hand right-hand-hidden"></div>
 			<div id="foot" class="foot"></div>
 			<div id="person" class="person"></div>
@@ -61,11 +61,11 @@
 
 	function rmClass() {
 		contact_copy.classList.remove("contact_copy_show");		
-		var time1 = setTimeout('contact.style.visibility = "visible"', 250);
-		var time2 = setTimeout('right_hidden.classList.remove("move_up")', 250);
-		var time3 = setTimeout('contact.classList.remove("contact_move")', 250);
-		var time4 = setTimeout('right_hidden.classList.remove("active")', 450);
-		var time5 = setTimeout('right_hand.classList.remove("test")', 650);
+		var time1 = setTimeout('contact.style.visibility = "visible"', 450);
+		var time2 = setTimeout('right_hidden.classList.remove("move_up")', 450);
+		var time3 = setTimeout('contact.classList.remove("contact_move")', 450);
+		var time4 = setTimeout('right_hidden.classList.remove("active")', 650);
+		var time5 = setTimeout('right_hand.classList.remove("test")', 850);
 	}
 	test.addEventListener('click', addClass);
 	close_button.addEventListener("click", rmClass);
