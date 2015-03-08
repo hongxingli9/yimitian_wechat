@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
 	<title>一米天动画</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+	<script src="zepto.min.1.1.6.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<style>
 	#test {
@@ -25,7 +26,7 @@
 		<div id="man" class="man">
 			<div id="left-hand" class="hand left-hand"></div>
 			<div id="right-hand" class="hand right-hand"></div>
-			<div id="right-hand-hidden" class="right-hand right-hand-hidden"></div>
+			<div id="right-hand-copy" class="right-hand right-hand-copy"></div>
 			<div id="foot" class="foot"></div>
 			<div id="person" class="person"></div>
 		</div>	
@@ -42,6 +43,103 @@
 	<button id="test">TEST</button>
 	
 	<script>
+	var $button = $("#test"),
+		$rightHand = $("#right-hand"),
+		$rightHandCopy = $("#right-hand-copy"),
+		$contact = $("#contact"),
+		$contactCopy = $("#contact_copy"),
+		$closeButton = $("#stage_close");
+
+	$button.on("click",toTakeContact);
+	$closeButton.on("click", toRecover);
+
+	function toTakeContact() {
+		var timeout_contact = null,
+			timeout_hand = null,
+			timeout_hidden = null,
+			timeout_show = null;
+
+		$rightHand.css({
+			"visibility" : "hidden"
+		});
+
+		$rightHandCopy.css({
+			"visibility" : "visible",
+			"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
+		});
+
+		timeout_contact = setTimeout(function() {
+			$contact.css({
+				"-webkit-transform" : "skewX(40deg)  translate3d(120%, -240%, 0)"
+			});
+		}, 200);
+
+		timeout_hand = setTimeout(function(){
+			$rightHandCopy.css({
+				"-webkit-transform" : "translate3d(126%, -40%, 0) rotate(20deg)"
+			});
+		}, 200);
+
+		timeout_hidden = setTimeout(function(){
+			$contact.css({
+				"visibility" : "hidden"
+ 			});
+		}, 250);
+
+ 		timeout_show = setTimeout(function(){
+ 			$contactCopy.css({
+		 		"visibility" : "visible",
+				"left" : "50%",
+				"top" : "50%",	
+				"-webkit-transform" : "translate3d(-50%, -50%, 0) rotate(-360deg) scale(1, 1)"
+ 			});
+ 		}, 300);
+	}
+
+	function toRecover() {
+		setTimeout(function() {
+			$contactCopy.css({
+				"visibility" : "hidden",
+				"left" : "18%",
+				"top" : "18%",	
+				"-webkit-transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)"
+			})
+		});
+
+		setTimeout(function(){
+			$contact.css({
+				"visibility" : "visible"
+ 			})
+		}, 450);
+
+		setTimeout(function() {
+			$rightHandCopy.css({
+				"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
+			});
+		}, 450);
+
+		setTimeout(function() {
+			$contact.css({
+				"-webkit-transform" : "skewX(40deg)"
+			});
+		}, 450);
+
+		setTimeout(function() {
+			$rightHandCopy.css({
+				"visibility" : "hidden",
+				"-webkit-transform" : "none"
+			});
+		}, 650);
+
+		setTimeout(function() {
+			$rightHand.css({
+				"visibility" : "visible"
+			})
+		}, 850);
+
+	}
+
+	/*
 	var main = document.getElementById("main");
 	var time_main = setTimeout('main.classList.remove("small")', 500);
 	var test = document.getElementById("test");
@@ -69,6 +167,7 @@
 	}
 	test.addEventListener('click', addClass);
 	close_button.addEventListener("click", rmClass);
+	*/
 	</script>
 </body>
 </html>

@@ -84,7 +84,7 @@ html, body {
 
 
 
-.right-hand-hidden {
+.right-hand-copy {
 	-webkit-animation: none;
 	visibility: hidden;
 	-webkit-transition: all .2s;
