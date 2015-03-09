@@ -68,73 +68,7 @@
 	});
 
 	$closeButton.tap(function() {
-		$closeButton.current = "";
-
-		$contactFinal.css({
-			"visibility" : "hidden"
-		});
-	
-
-		$contactCopy.css({
-			"visibility" : "hidden",
-			"left" : "18%",
-			"top" : "18%",	
-			"-webkit-transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)"
-		});
 		
-		setTimeout(function() {
-			hideCloseButton();
-		}, 100);
-
-		setTimeout(function() {
-			$person.css({
-				"-webkit-transform" : "skewX(2deg)"
-			})
-		}, 150);
-
-		setTimeout(function() {
-			$person.css({
-				"-webkit-transform" : "skewX(-3deg)"
-			})
-		}, 450);
-
-		setTimeout(function() {
-			$person.css({
-				"-webkit-transform" : "skewX(0deg)"
-			})
-		}, 750);
-
-		setTimeout(function(){
-			$contact.css({
-				"visibility" : "visible"
- 			})
-		}, 450);
-
-		setTimeout(function() {
-			$rightHandCopy.css({
-				"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
-			});
-		}, 450);
-
-		setTimeout(function() {
-			$contact.css({
-				"-webkit-transform" : "skewX(40deg)"
-			});
-		}, 450);
-
-		setTimeout(function() {
-			$rightHandCopy.css({
-				"visibility" : "hidden",
-				"-webkit-transform" : "none"
-			});
-		}, 650);
-
-		setTimeout(function() {
-			$rightHand.css({
-				"visibility" : "visible"
-			});
-			showTips();			
-		}, 850);
 	});
 	
 	function hideTips() {
@@ -239,7 +173,73 @@
 	}
 
 	function hideContact() {
+		$closeButton.current = "";
 
+		$contactFinal.css({
+			"visibility" : "hidden"
+		});
+	
+
+		$contactCopy.css({
+			"visibility" : "hidden",
+			"left" : "18%",
+			"top" : "18%",	
+			"-webkit-transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)"
+		});
+		
+		setTimeout(function() {
+			hideCloseButton();
+		}, 100);
+
+		setTimeout(function() {
+			$person.css({
+				"-webkit-transform" : "skewX(2deg)"
+			})
+		}, 150);
+
+		setTimeout(function() {
+			$person.css({
+				"-webkit-transform" : "skewX(-3deg)"
+			})
+		}, 450);
+
+		setTimeout(function() {
+			$person.css({
+				"-webkit-transform" : "skewX(0deg)"
+			})
+		}, 750);
+
+		setTimeout(function(){
+			$contact.css({
+				"visibility" : "visible"
+ 			})
+		}, 450);
+
+		setTimeout(function() {
+			$rightHandCopy.css({
+				"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
+			});
+		}, 450);
+
+		setTimeout(function() {
+			$contact.css({
+				"-webkit-transform" : "skewX(40deg)"
+			});
+		}, 450);
+
+		setTimeout(function() {
+			$rightHandCopy.css({
+				"visibility" : "hidden",
+				"-webkit-transform" : "none"
+			});
+		}, 650);
+
+		setTimeout(function() {
+			$rightHand.css({
+				"visibility" : "visible"
+			});
+			showTips();			
+		}, 850);
 	}
 	</script>
 </body>
