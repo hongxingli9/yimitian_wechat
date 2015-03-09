@@ -45,30 +45,24 @@
 		$contactFinal = $("#contact_final");
 
 	$("#tip_about").tap(function() {
-		hideTips();
-
-		$aboutPost.css({
-			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
-		});
-		
-		setTimeout(function() {
-			showCloseButton();
-		}, 200);
-
-		setTimeout(function() {
-			$aboutPost.css({
-				"-webkit-transform" : "translate3d(-50%, -42%, 0) rotate(0deg) scale(1,1)",
-				"z-index" : "100"
-			});
-		}, 300)				
+		showAboutPost();		
 	})
 
 	$("#tip_contact").tap(function() {
-
+		showContact();
 	});
 
 	$closeButton.tap(function() {
-		
+		switch($closeButton.current) {
+			case "contact": 
+				hideContact();
+			case  "aboutPost":
+				hideAboutPost();
+			case "workVedio":
+				hideWorkVedio();
+			default:
+				break;
+		}
 	});
 	
 	function hideTips() {
@@ -240,6 +234,58 @@
 			});
 			showTips();			
 		}, 850);
+	}
+
+	function showAboutPost() {
+		hideTips();
+
+		$closeButton.current = "aboutPost";
+
+		$aboutPost.css({
+			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
+		});
+		
+		setTimeout(function() {
+			showCloseButton();
+		}, 200);
+
+		setTimeout(function() {
+			$aboutPost.css({
+				"-webkit-transform" : "translate3d(-50%, -42%, 0) rotate(0deg) scale(1,1)",
+				"z-index" : "100"
+			});
+		}, 300)		
+	}
+
+	function hideAboutPost() {
+		$closeButton.current = "";
+
+		$aboutPost.css({
+			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
+		});
+
+		setTimeout(function() {
+			hideCloseButton();
+		}, 100);
+
+		setTimeout(function() {
+			$aboutPost.css({
+				"-webkit-transform" : "translate3d(-30%, -43.6%, 0) scale(0.22, 0.2) rotate(0deg)",
+				"z-index" : "0"
+			});
+		}, 380);
+
+		setTimeout(function() {
+			showTips();
+		}, 700);
+	}
+
+	function showWorkVedio() {
+
+	}
+
+	function hideWorkVedio() {
+
 	}
 	</script>
 </body>
