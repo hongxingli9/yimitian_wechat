@@ -3,27 +3,51 @@
 <head>
 	<meta charset="utf-8" />
 	<title>一米天动画</title>
+	<style>
+	<!--	
+	#loadingmask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgb(0,0,0);
+		z-index: 1000;
+	}
+	#persentage {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		font-size: 70px;
+		-webkit-transform: translate3d(-50%, -60%, 0);
+		color: rgb(255,255,255);		
+	}
+	-->
+	</style>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body id="main">
+	<div id="loadingmask">
+		<p id="persentage">Loading... 0%</p>
+	</div>
 	<div id="stage">
-		<div id="background" class="background"></div>		
-		<div id="about" class="about"></div>
+		<div id="background" data-original="images/bg.jpg" class="background lazy"></div>		
+		<div id="about" data-original="images/about.jpg" class="about lazy"></div>
 		<div id="about_copy"></div>
-		<div id="character" class="character"></div>
-		<div id="works" class="works"></div>
+		<div id="character" data-original="images/character.png" class="character lazy"></div>
+		<div id="works" data-original="images/works2.png" class="works lazy"></div>
 		<div id="works_copy">
 			<video id="vedio" src="media/showreel2.mp4" preload="auto" width="466" height="260" controls="controls" type="video/mp4" poster="images/poster.jpg"></video>
 		</div>
-		<div id="contact" class="contact"></div>
+		<div id="contact" data-original="images/contact.png" class="contact lazy"></div>
 		<div id="contact_copy" class="contact_copy"></div>
 		<div id="contact_final" class="contact_final"></div>		
 		<div id="man" class="man">
-			<div id="left-hand" class="hand left-hand"></div>
+			<div id="left-hand" data-original="images/hand.png" class="hand left-hand lazy"></div>
 			<div id="right-hand" class="hand right-hand"></div>
 			<div id="right-hand-copy" class="right-hand right-hand-copy"></div>
-			<div id="foot" class="foot"></div>
-			<div id="person" class="person"></div>
+			<div id="foot" data-original="images/foot.png" class="foot lazy"></div>
+			<div id="person" data-original="images/person.png" class="person lazy"></div>
 		</div>	
 		<div id="stage_close" class="stage_close">
 			<div id="rectangle_up" class="rectangle"></div>
@@ -31,30 +55,61 @@
 		</div>		
 		<div id="tip_about" class="tip"></div>
 		<div id="tip_works" class="tip"></div>
-		<div id="tip_contact" class="tip"></div>			
-	</div>
-	<div id="outdoor">
-		<div id="door" class="door"></div>
-		<div id="wall" class="wall"></div>
+		<div id="tip_contact" class="tip"></div>
+
+		<div id="door" data-original="images/door.png" class="door lazy"></div>
+		<div id="wall" data-original="images/wall.png" class="wall lazy"></div>
 		<div id="tip_enter" class="tip"></div>	
-		<div id="tip_hand"></div>
+		<div id="tip_hand" data-original="images/touch.png" class="lazy"></div>			
 	</div>
 	
 	<script src="zepto.min.1.1.6.js"></script>
 	<script>
-	var $rightHand = $("#right-hand"),
+	var $background = $("#background"),
+		$rightHand = $("#right-hand"),
 		$rightHandCopy = $("#right-hand-copy"),
 		$aboutPost = $("#about"),
 		$aboutCopy = $("#about_copy"),
+		$works = $("#works"),
 		$contact = $("#contact"),
 		$contactCopy = $("#contact_copy"),
+		$man = $("#man"),
 		$closeButton = $("#stage_close"),
 		$person = $("#person"),
 		$contactFinal = $("#contact_final");
 
+	$(function() {
+		var total = 0,
+			counter = 0,
+			loadingmask = $("#loadingmask"),
+			persentage = $("#persentage");
+		    lazyImgs = $(".lazy");
+		total = lazyImgs.length; console.log(total);
+		lazyImgs.lazyload({
+			load : function() {
+				counter++;
+				console.log("counter" + counter);
+				persentage.text("Loading... " + (counter * 100 / total) + "%");
+				if(counter == total) {
+					persentage.hide();
+					loadingmask.animate({
+						opacity: 0,
+					}, 600, "ease-out");
+					setTimeout(function() {
+						loadingmask.hide()
+					}, 600);
+				}				
+			}
+		})
+	});
+
 	$("#tip_enter").tap(function() {
 		showStage();
-	})
+	});
+
+	$("#tip_hand").tap(function() {
+		showStage();
+	});
 
 	$("#tip_about").tap(function() {
 		showAboutPost();		
@@ -86,9 +141,51 @@
 	
 	hideTips();
 
+	shrinkStage();
+
+	function loadImg() {
+
+	}
+
+	function shrinkStage() {
+		$background.css({
+			"-webkit-transform" : "scale(0.95, 0.95)"
+		});
+		$aboutPost.css({
+			"-webkit-transform" : "translate3d(-30%, -42.6%, 0) scale(0.2, 0.18) rotate(0deg)"
+		});
+		$works.css({
+			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.9, 0.9)"
+		});
+		$man.css({
+			"-webkit-transform" : "translate3d(3%, -100%, 0) scale(0.9,0.9)"
+		});
+		$contact.css({
+			"-webkit-transform" : "translate3d(-7%, -25%, 0) skewX(40deg) scale(0.9, 0.9)"
+		});
+	} 
+
+	function magnifyStage() {
+		$background.css({
+			"-webkit-transform" : "scale(1, 1)"
+		});
+		$aboutPost.css({
+			"-webkit-transform" : "translate3d(-30%, -43.6%, 0) scale(0.22, 0.2) rotate(0deg)"
+		});
+		$works.css({
+			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.98, 0.98)"
+		});
+		$man.css({
+			"-webkit-transform" : "translate3d(3%, -100%, 0) scale(1,1)"
+		});
+		$contact.css({
+			"-webkit-transform" : "translate3d(0, 0, 0) skewX(40deg) scale(1, 1)"
+		});
+	}
+
 	function showStage() {
 		var door = $("#door"),
-			outdoor = $("#outdoor");
+			wall = $("#wall");
 		door.css({
 			"-webkit-transform" : "rotateY(90deg)"
 		});
@@ -100,21 +197,17 @@
 			})
 		}, 400);
 		setTimeout(function() {
-			outdoor.css({
+			wall.css({
 				"-webkit-transform" : "scale(2.8, 2.8)"
 			})
 		}, 400);
 		
-		/*
 		setTimeout(function() {
-			$("#stage").css({
-				"-webkit-transform" : "scale(1,1)"
-			})
-		}, 400);
-		*/
+			magnifyStage();
+		}, 380);		
 		
 		setTimeout(function() {
-			outdoor.css({
+			wall.css({
 				"display" : "none"
 			})
 		}, 800);
