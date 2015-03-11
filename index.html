@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>一米天动画</title>
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<style>
 	<!--	
 	#loadingmask {
@@ -18,7 +19,7 @@
 		position: absolute;
 		left: 50%;
 		top: 50%;
-		font-size: 70px;
+		font-size: 30px;
 		-webkit-transform: translate3d(-50%, -60%, 0);
 		color: rgb(255,255,255);		
 	}
@@ -43,7 +44,7 @@
 		<div id="character" data-original="images/character.png" class="character lazy"></div>
 		<div id="works" data-original="images/works2.png" class="works lazy"></div>
 		<div id="works_copy">
-			<video id="vedio" src="media/showreel2.mp4" preload="auto" width="466" height="260" controls="controls" type="video/mp4" poster="images/poster.jpg"></video>
+			<video id="vedio" src="media/showreel2.mp4" preload="auto" width="480" height="270" controls="controls" type="video/mp4" poster="images/poster.jpg"></video>
 		</div>
 		<div id="contact" data-original="images/contact.png" class="contact lazy"></div>
 		<div id="contact_copy" class="contact_copy"></div>
@@ -79,6 +80,7 @@
 		$person = $("#person"),
 		$contactFinal = $("#contact_final");
 
+	 
 	hideTips();
 
 	//shrinkStage();
@@ -89,11 +91,10 @@
 			loadingmask = $("#loadingmask"),
 			persentage = $("#persentage");
 		    lazyImgs = $(".lazy");
-		total = lazyImgs.length; console.log(total);
+		total = lazyImgs.length;
 		lazyImgs.lazyload({
 			load : function() {
-				counter++;
-				console.log("counter" + counter);
+				counter++;				
 				persentage.text("Loading... " + Math.ceil(counter * 100 / total) + "%");
 				if(counter == total) {
 					persentage.hide();
@@ -469,7 +470,16 @@
 				"display" : "block",
 				"z-index" : "100"
 			});
+			$("#video").width($("#works_copy").width()); 
+			$("#video").height($("#works_copy").height());
 		}, 400);
+
+		setTimeout(function() {
+			console.log($("#vedio").width());
+			console.log($("#works_copy").width());
+			$("#vedio").width($("#works_copy").width() * 0.66); 
+			$("#vedio").height($("#works_copy").height() * 0.86);
+		}, 500);
 	}
 
 	function hideWorksVideo() {
