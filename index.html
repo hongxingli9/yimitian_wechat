@@ -30,6 +30,12 @@
 	<div id="loadingmask">
 		<p id="persentage">Loading... 0%</p>
 	</div>
+	<div id="outside">
+		<div id="door" data-original="images/door.png" class="door lazy"></div>
+		<div id="wall" data-original="images/wall.png" class="wall lazy"></div>
+		<div id="tip_enter" class="tip"></div>	
+		<div id="tip_hand" data-original="images/touch.png" class="lazy"></div>		
+	</div>
 	<div id="stage">
 		<div id="background" data-original="images/bg.jpg" class="background lazy"></div>		
 		<div id="about" data-original="images/about.jpg" class="about lazy"></div>
@@ -55,12 +61,7 @@
 		</div>		
 		<div id="tip_about" class="tip"></div>
 		<div id="tip_works" class="tip"></div>
-		<div id="tip_contact" class="tip"></div>
-
-		<div id="door" data-original="images/door.png" class="door lazy"></div>
-		<div id="wall" data-original="images/wall.png" class="wall lazy"></div>
-		<div id="tip_enter" class="tip"></div>	
-		<div id="tip_hand" data-original="images/touch.png" class="lazy"></div>			
+		<div id="tip_contact" class="tip"></div>	
 	</div>
 	
 	<script src="zepto.min.1.1.6.js"></script>
@@ -78,6 +79,10 @@
 		$person = $("#person"),
 		$contactFinal = $("#contact_final");
 
+	hideTips();
+
+	//shrinkStage();
+
 	$(function() {
 		var total = 0,
 			counter = 0,
@@ -89,7 +94,7 @@
 			load : function() {
 				counter++;
 				console.log("counter" + counter);
-				persentage.text("Loading... " + (counter * 100 / total) + "%");
+				persentage.text("Loading... " + Math.ceil(counter * 100 / total) + "%");
 				if(counter == total) {
 					persentage.hide();
 					loadingmask.animate({
@@ -138,14 +143,6 @@
 				break;
 		}
 	});
-	
-	hideTips();
-
-	shrinkStage();
-
-	function loadImg() {
-
-	}
 
 	function shrinkStage() {
 		$background.css({
@@ -165,7 +162,13 @@
 		});
 	} 
 
+	
 	function magnifyStage() {
+
+		$("#stage").css({
+			"-webkit-transform" : "scale(1,1)"
+		});
+		/*
 		$background.css({
 			"-webkit-transform" : "scale(1, 1)"
 		});
@@ -181,10 +184,13 @@
 		$contact.css({
 			"-webkit-transform" : "translate3d(0, 0, 0) skewX(40deg) scale(1, 1)"
 		});
+		*/
 	}
 
+
 	function showStage() {
-		var door = $("#door"),
+		var outside = $("#outside"),
+			door = $("#door"),
 			wall = $("#wall");
 		door.css({
 			"-webkit-transform" : "rotateY(90deg)"
@@ -204,10 +210,10 @@
 		
 		setTimeout(function() {
 			magnifyStage();
-		}, 380);		
+		}, 400);		
 		
 		setTimeout(function() {
-			wall.css({
+			outside.css({
 				"display" : "none"
 			})
 		}, 800);
@@ -217,22 +223,18 @@
 	}
  
 	function hideTips() {
-		$(".tip").each(function(index, item) {
-			if(3 != index) {
-				$(item).css({
-				 	"display" : "none"
-				});
-			}			
+		$("#stage .tip").each(function(index, item) {
+			$(item).css({
+				 "display" : "none"
+			});						
 		});
 	}
 
 	function showTips() {
-		$(".tip").each(function(index, item) {
-			if(3 != index) {
-				$(item).css({
-					"display" : "block"
-				});
-			}		
+		$("#stage .tip").each(function(index, item) {
+			$(item).css({
+				"display" : "block"
+			});					
 		});
 	}
 
