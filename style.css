@@ -5,14 +5,6 @@ body, div {
 
 html, body {
 	height: 100%;
-	/*
-	max-width: 500px;
-	min-width: 320px;
-	*/
-	margin: 0 auto;
-	background-color: rgb(0,0,0);
-	overflow: hidden;
-	-webkit-transition: all .2s;
 }
 
 .small {
@@ -20,9 +12,12 @@ html, body {
 }
 
 #stage {
-	position: relative;
+	position: absolute;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
+	/*-webkit-transform: scale(0.9, 0.9);*/
+	-webkit-transition: -webkit-transform .5s;
 }
 
 .background {
@@ -53,13 +48,50 @@ html, body {
 	z-index: 0;
 }
 
+/*微信内嵌浏览器hack*/
+#about_copy {
+	position: absolute;
+	display: none;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	height: 80%;
+	background: url(images/about.jpg) 0px 0px/100% 100% no-repeat;
+	-webkit-transform : translate3d(-50%, -42%, 0);
+	z-index: 100;
+}
+
 .works {
 	position: absolute;
-	left: 19.8%;
-	top: 43%;
 	width: 60%;
 	height: 28%;
 	background: url(images/works2.png) 0px 0px/100% 100% no-repeat;
+	-webkit-transform: translate3d(32%, -205%, 0) scale(0.98, 0.98);
+	-webkit-transition: -webkit-transform .4s;
+}
+
+#works_copy {
+	position: absolute;
+	display: none;
+	width: 60%;
+	height: 28%;
+	background: url(images/works2.png) 0px 0px/100% 100% no-repeat;
+	-webkit-transform: translate3d(32%, -230%, 0) scale(1.5, 1.5);
+}
+
+#vedio {
+	position: relative;
+	left: 10%;
+	top: 11%;
+ 	-webkit-transform: scale(1.21, 1.3);
+}
+
+.man {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: translate3d(3%, -100%, 0);
+	-webkit-transition: -webkit-transform .4s;
 }
 
 .hand {
@@ -184,10 +216,10 @@ html, body {
 /*关闭弹出的叉号*/
 .stage_close {
 	position: absolute;
-	right: 6%;
-	top: 5%;
-	width: 60px;
-	height: 60px;
+	right: 4.8%;
+	top: 3.2%;
+	width: 130px;
+	height: 130px;
 	-webkit-transition: -webkit-transform .4s;
 	-webkit-transform: scale(0,0) rotate(0deg);
 	z-index: 200
@@ -200,8 +232,8 @@ html, body {
 	top: 50%;
 	-webkit-transform-origin: center center;
 	
-	width: 50px;
-	height: 8px;
+	width: 128px;
+	height: 20px;
 	background-color: #fff;
 }
 
@@ -221,24 +253,68 @@ html, body {
 	border-radius: 50%;
 	background-color: rgb(0, 255, 255);
 	opacity: 0.5;
+	-webkit-animation: attention 1s linear infinite alternate;
 }
 
 #tip_about {
 	left: 36.8%;
 	top: 12.6%;
-	-webkit-animation: attention 1s linear infinite alternate;
+	/*-webkit-animation: attention 1s linear infinite alternate;*/
 }
 
 #tip_works {
 	left: 15%;
 	top: 40.6%;
-	-webkit-animation: attention 1s linear infinite alternate;
+	/*-webkit-animation: attention 1s linear infinite alternate;*/
 }
 
 #tip_contact {
 	left: 64.6%;
 	bottom: 25%;
-	-webkit-animation: attention 1s linear infinite alternate;
+	/*-webkit-animation: attention 1s linear infinite alternate;*/
+}
+
+#outdoor {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: scale(1, 1);
+	-webkit-transition: -webkit-transform .5s;
+}
+
+#wall {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url(images/wall.png) 0px 0px/100% 100% no-repeat;	
+}
+
+#door {
+	position: absolute;
+	left: 17%;
+	bottom: 1.6%;
+	width: 66.6%;
+	height: 69.4%;;
+	background: url(images/door.png) 0px 0px/100% 100% no-repeat;
+	-webkit-transition: -webkit-transform .4s;
+	-webkit-transform-origin: left center;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: rotateY(0deg);
+}
+
+#tip_enter {
+	right: 20%;
+	top: 60%;
+}
+
+#tip_hand {
+	position: absolute;
+	right: 15.6%;
+	bottom: 28%;
+	width: 14%;
+	height: 10%;
+	background: url(images/touch.png) 0px 0px/100% 100% no-repeat;	
+	-webkit-animation: tip_hand 3s infinite;
 }
 
 /*动画*/
@@ -258,4 +334,10 @@ html, body {
 	0% { -webkit-transform: scale(0.8, 0.8); opacity: .6;}
 	50% { -webkit-transform: scale(1, 1); opacity: .5;}
 	100% { -webkit-transform: scale(1.2, 1.2); opacity: .4;}
+}
+
+@-webkit-keyframes tip_hand {
+	0%, 60%{ -webkit-transform: scale(1,1);}
+	80%, 90%{ -webkit-transform: scale(0.8,0.8);}
+	100%{ -webkit-transform: scale(1,1);}
 }
