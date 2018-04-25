@@ -21,6 +21,7 @@
 		top: 50%;
 		font-size: 30px;
 		-webkit-transform: translate3d(-50%, -60%, 0);
+		transform: translate3d(-50%, -60%, 0);
 		color: rgb(255,255,255);		
 	}
 	-->
@@ -44,7 +45,7 @@
 		<div id="character" data-original="images/character.png" class="character lazy"></div>
 		<div id="works" data-original="images/works2.png" class="works lazy"></div>
 		<div id="works_copy">
-			<video id="vedio" src="media/showreel2.mp4" preload="auto" width="480" height="270" controls="controls" type="video/mp4" poster="images/poster.jpg"></video>
+			<video id="video" src="media/showreel2.mp4" preload="auto" width="480" height="270" controls="controls" type="video/mp4" poster="images/poster.jpg"></video>
 		</div>
 		<div id="contact" data-original="images/contact.png" class="contact lazy"></div>
 		<div id="contact_copy" class="contact_copy"></div>
@@ -65,9 +66,10 @@
 		<div id="tip_contact" class="tip"></div>	
 	</div>
 	
-	<script src="zepto.min.1.1.6.js"></script>
+	<script src="zepto.1.1.6.js"></script>
 	<script>
-	var $background = $("#background"),
+	var $main = $("#main"),
+		$background = $("#background"),
 		$rightHand = $("#right-hand"),
 		$rightHandCopy = $("#right-hand-copy"),
 		$aboutPost = $("#about"),
@@ -78,12 +80,23 @@
 		$man = $("#man"),
 		$closeButton = $("#stage_close"),
 		$person = $("#person"),
-		$contactFinal = $("#contact_final");
+		$contactFinal = $("#contact_final"),
+		$tip_enter = $("#tip_enter"),
+		$video = $("#video");
 
-	 
 	hideTips();
 
-	//shrinkStage();
+	var isPC = function () {
+	    var userAgentInfo = navigator.userAgent.toLowerCase();
+	    var Agents = new Array("android", "iphone", "symbianOS", "windows phone", "ipad", "ipod");
+	    var flag = true;
+	    for (var v = 0; v < Agents.length; v++) {
+	        if (userAgentInfo.indexOf(Agents[v]) > 0) { 
+	        	flag = false; break; 
+	        }
+	    }
+	    return flag;
+	}
 
 	$(function() {
 		var total = 0,
@@ -91,11 +104,12 @@
 			loadingmask = $("#loadingmask"),
 			persentage = $("#persentage");
 		    lazyImgs = $(".lazy");
+		$tip_enter.hide();
 		total = lazyImgs.length;
 		lazyImgs.lazyload({
 			load : function() {
 				counter++;				
-				persentage.text("Loading... " + Math.ceil(counter * 100 / total) + "%");
+				persentage.text("Loading... " + Math.floor(counter * 100 / total + 10) + "%");
 				if(counter == total) {
 					persentage.hide();
 					loadingmask.animate({
@@ -103,89 +117,94 @@
 					}, 600, "ease-out");
 					setTimeout(function() {
 						loadingmask.hide()
+						$tip_enter.show();
 					}, 600);
 				}				
 			}
 		})
 	});
 
-	$("#tip_enter").tap(function() {
-		showStage();
-	});
-
-	$("#tip_hand").tap(function() {
-		showStage();
-	});
-
-	$("#tip_about").tap(function() {
-		showAboutPost();		
-	})
-
-	$("#tip_contact").tap(function() {
-		showContact();
-	});
-
-	$("#tip_works").tap(function() {
-		showWorksVideo();
-	});
-
-	$closeButton.tap(function() {
-		switch($closeButton.current) {
-			case "contact": 
-				hideContact();
-				break;
-			case  "aboutPost":
-				hideAboutPost();
-				break;
-			case "workVideo":
-				hideWorksVideo();
-				break;
-			default:
-				break;
-		}
-	});
-
-	function shrinkStage() {
-		$background.css({
-			"-webkit-transform" : "scale(0.95, 0.95)"
+	if (isPC()) { 
+		$main.addClass("main");
+		//pc端支持点击事件
+		$("#tip_enter").on("click", function(event) {
+			showStage();
 		});
-		$aboutPost.css({
-			"-webkit-transform" : "translate3d(-30%, -42.6%, 0) scale(0.2, 0.18) rotate(0deg)"
+		$("#tip_hand").on("click", function(event) {
+			showStage();
 		});
-		$works.css({
-			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.9, 0.9)"
-		});
-		$man.css({
-			"-webkit-transform" : "translate3d(3%, -100%, 0) scale(0.9,0.9)"
-		});
-		$contact.css({
-			"-webkit-transform" : "translate3d(-7%, -25%, 0) skewX(40deg) scale(0.9, 0.9)"
-		});
-	} 
 
+		$("#tip_about").on("click", function(event) {
+			showAboutPost();		
+		})
+
+		$("#tip_contact").on("click", function(event) {
+			showContact();
+		});
+
+		$("#tip_works").on("click", function(event) {
+			showWorksVideo();
+		});
+
+		$closeButton.on("click", function(event) {
+			switch($closeButton.current) {
+				case "contact": 
+					hideContact();
+					break;
+				case  "aboutPost":
+					hideAboutPost();
+					break;
+				case "workVideo":
+					hideWorksVideo();
+					break;
+				default:
+					break;
+			}
+		});
+	} else { //移动端支持触摸事件
+		$("#tip_enter").tap(function() {
+			showStage();
+		});
+
+		$("#tip_hand").tap(function() {
+			showStage();
+		});
+
+		$("#tip_about").tap(function() {
+			showAboutPost();		
+		})
+
+		$("#tip_contact").tap(function() {
+			showContact();
+		});
+
+		$("#tip_works").tap(function() {
+			showWorksVideo();
+		});
+
+		$closeButton.tap(function() {
+			switch($closeButton.current) {
+				case "contact": 
+					hideContact();
+					break;
+				case  "aboutPost":
+					hideAboutPost();
+					break;
+				case "workVideo":
+					hideWorksVideo();
+					break;
+				default:
+					break;
+			}
+		});
+	}
 	
 	function magnifyStage() {
 
 		$("#stage").css({
-			"-webkit-transform" : "scale(1,1)"
+			"-webkit-transform" : "scale(1,1)",
+			"transform" : "scale(1,1)"
 		});
-		/*
-		$background.css({
-			"-webkit-transform" : "scale(1, 1)"
-		});
-		$aboutPost.css({
-			"-webkit-transform" : "translate3d(-30%, -43.6%, 0) scale(0.22, 0.2) rotate(0deg)"
-		});
-		$works.css({
-			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.98, 0.98)"
-		});
-		$man.css({
-			"-webkit-transform" : "translate3d(3%, -100%, 0) scale(1,1)"
-		});
-		$contact.css({
-			"-webkit-transform" : "translate3d(0, 0, 0) skewX(40deg) scale(1, 1)"
-		});
-		*/
 	}
 
 
@@ -194,9 +213,10 @@
 			door = $("#door"),
 			wall = $("#wall");
 		door.css({
-			"-webkit-transform" : "rotateY(90deg)"
+			"-webkit-transform" : "rotateY(90deg)",
+			"transform" : "rotateY(90deg)"
 		});
-		$("#tip_enter").hide();
+		$tip_enter.hide();
 		$("#tip_hand").hide();
 		setTimeout(function() {
 			door.css({
@@ -205,7 +225,8 @@
 		}, 400);
 		setTimeout(function() {
 			wall.css({
-				"-webkit-transform" : "scale(2.8, 2.8)"
+				"-webkit-transform" : "scale(2.8, 2.8)",
+				"transform" : "scale(2.8, 2.8)"
 			})
 		}, 400);
 		
@@ -241,13 +262,15 @@
 
 	function showCloseButton() {
 		$closeButton.css({
-			"-webkit-transform" : "scale(1,1) rotate(180deg)"
+			"-webkit-transform" : "scale(1,1) rotate(180deg)",
+			"transform" : "scale(1,1) rotate(180deg)"
 		});
 	}
 
 	function hideCloseButton() {
 		$closeButton.css({
-			"-webkit-transform" : "scale(0,0) rotate(0deg)"
+			"-webkit-transform" : "scale(0,0) rotate(0deg)",
+			"transform" : "scale(0,0) rotate(0deg)"
 		});
 	}
 
@@ -267,7 +290,8 @@
 
 		$rightHandCopy.css({
 			"visibility" : "visible",
-			"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
+			"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)",
+			"transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
 		});
 
 		setTimeout(function() {
@@ -275,30 +299,35 @@
 		}, 400);
 		
 		$person.css({
-			"-webkit-transform" : "skewX(-3deg)"
+			"-webkit-transform" : "skewX(-3deg)",
+			"transform" : "skewX(-3deg)"
 		});
 
 		setTimeout(function() {
 			$person.css({
-				"-webkit-transform" : "skewX(2deg)"
+				"-webkit-transform" : "skewX(2deg)",
+				"transform" : "skewX(2deg)"
 			});
 		}, 200);
 
 		setTimeout(function() {
 			$person.css({
-				"-webkit-transform" : "skewX(0deg)"
+				"-webkit-transform" : "skewX(0deg)",
+				"transform" : "skewX(0deg)"
 			});
 		}, 500);
 
 		timeout_contact = setTimeout(function() {
 			$contact.css({
-				"-webkit-transform" : "skewX(40deg)  translate3d(120%, -240%, 0)"
+				"-webkit-transform" : "skewX(40deg)  translate3d(120%, -240%, 0)",
+				"transform" : "skewX(40deg)  translate3d(120%, -240%, 0)"
 			});
 		}, 200);
 
 		timeout_hand = setTimeout(function(){
 			$rightHandCopy.css({
-				"-webkit-transform" : "translate3d(90%, -40%, 0) rotate(20deg)"
+				"-webkit-transform" : "translate3d(90%, -40%, 0) rotate(20deg)",
+				"transform" : "translate3d(90%, -40%, 0) rotate(20deg)"
 			});
 		}, 200);
 
@@ -313,7 +342,8 @@
 		 		"visibility" : "visible",
 				"left" : "50%",
 				"top" : "50%",	
-				"-webkit-transform" : "translate3d(-50%, -50%, 0) rotate(360deg) scale(1, 1)"
+				"-webkit-transform" : "translate3d(-50%, -50%, 0) rotate(360deg) scale(1, 1)",
+				"transform" : "translate3d(-50%, -50%, 0) rotate(360deg) scale(1, 1)"
  			});
  		}, 350);
 
@@ -336,7 +366,8 @@
 			"visibility" : "hidden",
 			"left" : "18%",
 			"top" : "18%",	
-			"-webkit-transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)"
+			"-webkit-transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)",
+			"transform" : "translate3d(0, 0, 0) rotate(0deg) scale(0.06, 0.06)"
 		});
 		
 		setTimeout(function() {
@@ -345,19 +376,22 @@
 
 		setTimeout(function() {
 			$person.css({
-				"-webkit-transform" : "skewX(2deg)"
+				"-webkit-transform" : "skewX(2deg)",
+				"transform" : "skewX(2deg)"
 			})
 		}, 150);
 
 		setTimeout(function() {
 			$person.css({
-				"-webkit-transform" : "skewX(-3deg)"
+				"-webkit-transform" : "skewX(-3deg)",
+				"transform" : "skewX(-3deg)"
 			})
 		}, 450);
 
 		setTimeout(function() {
 			$person.css({
-				"-webkit-transform" : "skewX(0deg)"
+				"-webkit-transform" : "skewX(0deg)",
+				"transform" : "skewX(0deg)"
 			})
 		}, 750);
 
@@ -369,20 +403,23 @@
 
 		setTimeout(function() {
 			$rightHandCopy.css({
-				"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
+				"-webkit-transform" : "translate3d(60%, -20%, 0) rotate(72deg)",
+				"transform" : "translate3d(60%, -20%, 0) rotate(72deg)"
 			});
 		}, 450);
 
 		setTimeout(function() {
 			$contact.css({
-				"-webkit-transform" : "skewX(40deg)"
+				"-webkit-transform" : "skewX(40deg)",
+				"transform" : "skewX(40deg)"
 			});
 		}, 450);
 
 		setTimeout(function() {
 			$rightHandCopy.css({
 				"visibility" : "hidden",
-				"-webkit-transform" : "none"
+				"-webkit-transform" : "none",
+				"transform" : "none"
 			});
 		}, 650);
 
@@ -400,7 +437,8 @@
 		$closeButton.current = "aboutPost";
 
 		$aboutPost.css({
-			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
+			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)",
+			"transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
 		});
 		
 		setTimeout(function() {
@@ -410,6 +448,7 @@
 		setTimeout(function() {
 			$aboutPost.css({
 				"-webkit-transform" : "translate3d(-50%, -42%, 0) rotate(0deg) scale(1,1)",
+				"transform" : "translate3d(-50%, -42%, 0) rotate(0deg) scale(1,1)",
 				"z-index" : "100"
 			});
 		}, 300);
@@ -429,7 +468,8 @@
 		});
 
 		$aboutPost.css({
-			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
+			"-webkit-transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)",
+			"transform" : "translate3d(-36%, -52%, 0) rotate(-20deg) scale(0.22, 0.2)"
 		});
 
 		setTimeout(function() {
@@ -439,6 +479,7 @@
 		setTimeout(function() {
 			$aboutPost.css({
 				"-webkit-transform" : "translate3d(-30%, -43.6%, 0) scale(0.22, 0.2) rotate(0deg)",
+				"transform" : "translate3d(-30%, -43.6%, 0) scale(0.22, 0.2) rotate(0deg)",
 				"z-index" : "0"
 			});
 		}, 380);
@@ -458,11 +499,13 @@
 		}, 200);
 
 		$("#man").css({
-			"-webkit-transform" : "translate3d(-70%, -100%, 0)"
+			"-webkit-transform" : "translate3d(-70%, -100%, 0)",
+			"transform" : "translate3d(-70%, -100%, 0)"
 		});
 
 		$("#works").css({
-			"-webkit-transform" : "translate3d(32%, -230%, 0) scale(1.5, 1.5)"
+			"-webkit-transform" : "translate3d(32%, -230%, 0) scale(1.5, 1.5)",
+			"transform" : "translate3d(32%, -230%, 0) scale(1.5, 1.5)"
 		})
 
 		setTimeout(function() {
@@ -475,11 +518,13 @@
 		}, 400);
 
 		setTimeout(function() {
-			console.log($("#vedio").width());
+			console.log($("#video").width());
 			console.log($("#works_copy").width());
-			$("#vedio").width($("#works_copy").width() * 0.66); 
-			$("#vedio").height($("#works_copy").height() * 0.86);
-		}, 500);
+			$("#video").width($("#works_copy").width() * 0.66); 
+			$("#video").height($("#works_copy").height() * 0.86);
+		}, 400);
+
+		$video.get(0).play();
 	}
 
 	function hideWorksVideo() {
@@ -491,11 +536,13 @@
 		});
 
 		$("#works").css({
-			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.98, 0.98)"
+			"-webkit-transform" : "translate3d(32%, -205%, 0) scale(0.98, 0.98)",
+			"transform" : "translate3d(32%, -205%, 0) scale(0.98, 0.98)"
 		});
 
 		$("#man").css({
-			"-webkit-transform" : "translate3d(3%, -100%, 0)"
+			"-webkit-transform" : "translate3d(3%, -100%, 0)",
+			"transform" : "translate3d(3%, -100%, 0)"
 		})
 
 		setTimeout(function() {
@@ -505,6 +552,7 @@
 		setTimeout(function() {
 			showTips();
 		}, 400) ;
+		$video.get(0).pause();
 	}
 	</script>
 </body>
